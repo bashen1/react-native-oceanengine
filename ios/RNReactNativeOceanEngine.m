@@ -43,12 +43,8 @@ RCT_EXPORT_METHOD(init:(NSDictionary *)param resolve:(RCTPromiseResolveBlock)res
     }
 
     // 上报冷启动事件
-    if (staticLaunchOptions) {
-        [BDASignalManager didFinishLaunchingWithOptions:staticLaunchOptions connectOptions:nil];
-        resolve(@(YES));
-    } else {
-        resolve(@(NO));
-    }
+    [BDASignalManager didFinishLaunchingWithOptions:staticLaunchOptions connectOptions:nil];
+    resolve(@(YES));
 }
 
 // 获取clickId
