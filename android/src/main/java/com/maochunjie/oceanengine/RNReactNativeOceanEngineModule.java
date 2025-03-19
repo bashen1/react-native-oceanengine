@@ -8,6 +8,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 
+import java.util.Objects;
+
 public class RNReactNativeOceanEngineModule extends ReactContextBaseJavaModule {
     private final ReactApplicationContext reactContext;
 
@@ -47,7 +49,7 @@ public class RNReactNativeOceanEngineModule extends ReactContextBaseJavaModule {
             config.setCustomAndroidIDCallback(() -> androidId);
         }
 
-        BDConvert.INSTANCE.init(reactContext.getCurrentActivity().getApplication(), config);
+        BDConvert.INSTANCE.init(reactContext, config, Objects.requireNonNull(reactContext.getCurrentActivity()));
         BDConvert.INSTANCE.sendLaunchEvent(reactContext); // 发送
 
         p.resolve(true);
