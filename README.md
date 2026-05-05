@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/react-native-oceanengine.svg)](https://badge.fury.io/js/react-native-oceanengine)
 
-iOS version：1.0.3
+iOS version：1.0.6
 
 Android version：2.0.0
 
