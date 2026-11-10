@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.5
+
+- iOS模块支持SceneDelegate
+
 ## 1.0.4
 
 - 升级 iOS SDK 至 1.0.6 版本
