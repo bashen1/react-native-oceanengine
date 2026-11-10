@@ -21,7 +21,7 @@ pod install
 
 ### iOS集成
 
-1. 打开iOS工程的 `AppDelegate` 、 `SceneDelegate`，添加如下代码：
+1. 如果iOS工程是 `AppDelegate`
 
 ```oc
 #import "RNReactNativeOceanEngine.h"
@@ -35,6 +35,23 @@ pod install
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
   [RNReactNativeOceanEngine anylyseDeeplinkClickidWithOpenUrl:application openURL:url options:options]; // 添加此行代码
   return [RCTLinkingManager application:application openURL:url options:options];
+}
+
+```
+
+2. 如果iOS工程是 `SceneDelegate`
+
+```oc
+#import "RNReactNativeOceanEngine.h"
+
+
+- (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions
+{
+    [RNReactNativeOceanEngine setConnectionOptions:connectionOptions]; // 添加此行代码
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    [RNReactNativeOceanEngine anylyseDeeplinkClickidWithOpenUrl:app openURL:url options:options]; // 添加此行代码
 }
 
 ```
