@@ -1,8 +1,10 @@
 #import "BDASignalDefinitions.h"
 #import "BDASignalManager.h"
 #import "RNReactNativeOceanEngine.h"
+#import <UIKit/UISceneOptions.h>
 
 static NSDictionary *staticLaunchOptions;
+static UISceneConnectionOptions *staticConnectionOptions;
 
 @implementation RNReactNativeOceanEngine {
     bool hasListeners;
@@ -42,8 +44,10 @@ RCT_EXPORT_METHOD(init:(NSDictionary *)param resolve:(RCTPromiseResolveBlock)res
         }];
     }
 
-    // 上报冷启动事件
-    [BDASignalManager didFinishLaunchingWithOptions:staticLaunchOptions connectOptions:nil];
+    // SDK 仅在 launchOptions 为空时读取 connectOptions，Scene URL 存在时必须走后者。
+    NSDictionary *launchOptions = staticConnectionOptions.URLContexts.count > 0 ? nil : staticLaunchOptions;
+    // 上报冷启动事件，并在上报前解析本次 Scene URL 中的 clickid。
+    [BDASignalManager didFinishLaunchingWithOptions:launchOptions connectOptions:staticConnectionOptions];
     resolve(@(YES));
 }
 
@@ -65,6 +69,10 @@ RCT_EXPORT_METHOD(getClickId:(NSDictionary *)param resolve:(RCTPromiseResolveBlo
 
 + (void)setLaunchOptions:(NSDictionary *_Nonnull)launchOptions {
     staticLaunchOptions = launchOptions;
+}
+
++ (void)setConnectionOptions:(UISceneConnectionOptions *_Nonnull)connectionOptions {
+    staticConnectionOptions = connectionOptions;
 }
 
 @end
